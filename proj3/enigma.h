@@ -25,7 +25,8 @@ void setRotorIndex(Rotor *, int, int);
 int getRotorVal(int);
 void printRotors(Rotor*, bool);
 char* getSecretMessage();
-void starCrypt(Rotor * rt_ptr, char * intputString);
+void starCrypt(Rotor * rt_ptr, char * intputString, char);
+char getNewLetter(char currentLetter, int key);
 
 
 #endif //PROJ3_ENIGMA_H

@@ -22,7 +22,7 @@ int main(int argc, char ** argv)
 
     //void setRotorIndex(Rotor *, int, int); // TOFIX: make this a return a boolean, if it is a vlaid index true
 
-   for( i = 1; i <argc; i++)
+   for( i = 1; i <argc-1; i++)
    {
        printf("setting rotor %d to index: %d\n", i,atoi(argv[i]) );
        setRotorIndex(rotor_ptr,i, atoi(argv[i]));
@@ -31,7 +31,8 @@ int main(int argc, char ** argv)
   // printf("New index of rotor1: %d\n", rotor_ptr -> rotor1);
   // printf("The value that rotor1 represents %d\n", getRotorVal(rotor_ptr, rotor_ptr -> rotor1));
    printRotors(rotor_ptr, true);
-   starCrypt(rotor_ptr, "hello world");
+    printf("%c\n", argv[4][0]);
+   starCrypt(rotor_ptr, getSecretMessage(),(argv[4][0]) );
    return 0;
 
 }

@@ -72,16 +72,18 @@ void printRotors(Rotor* rt_ptr, bool displayRotorVals)
 }
 char* getSecretMessage() //TOFIX: awesome-ify this by having it take a file pointer!
 {
-    char * inputString;
+    char * inputString = malloc(sizeof(char)*65);
     printf("Rotors have been set, enter in the secret message:\n");
     fgets(inputString,64, stdin);
     printf("Input text supplied is: %s\n", inputString);
+
+    inputString = strncpy(inputString,inputString,sizeof(inputString));
 
     return (inputString);
 
 }
 
-void starCrypt(Rotor * rt_ptr, char * intputString)
+void starCrypt(Rotor * rt_ptr, char * inputString, char actionType)
 {
     // the '*' wildcard is often denoted as a star.
     // because encrypt and decrypt only differ by the prescence of an 'en' on 'de'
@@ -89,7 +91,38 @@ void starCrypt(Rotor * rt_ptr, char * intputString)
     // fucntion will be able to handle both 'crypting.
 
     int key;
+    int i = 0;
+    char newLetter;
 
     key = getRotorVal(rt_ptr ->rotor1)+getRotorVal(rt_ptr ->rotor2)+getRotorVal(rt_ptr ->rotor3);
     printf("THE TOAL KEY IZZ: %d\n", key);
+
+    while(inputString[i] != '\n')
+    {
+        if(actionType == 'd')
+        {
+            printf("encrypted letter: '%c' | unencrypted to letter: ",inputString[i]);
+            //newLetter = inputString[i]+key;
+            printf("%c\n", getNewLetter(inputString[i],key));
+        }
+        else
+            printf("build a better algorithm\n");
+        i++;
+    }
+}
+char getNewLetter(char currentLetter, int key)
+{
+    int newLetter;
+    int  i;
+    char LETTERS[] = {'A','B','C','D','E','F','G','H','I','J','K',
+                      'L','M','N','O','P','Q','R','S','T','U','V',
+                      'W','X','Y','Z',' '};
+
+    newLetter = (char)(currentLetter == ' ') ? 26 : currentLetter - 65;
+    printf("*****%d ", newLetter);
+    newLetter = ((newLetter + key) > 26) ? (newLetter-27)+key:newLetter+key;
+
+    //printf("The ascii-trick value is %d, in the array is '%c' the given value is %d\n",newLetter, LETTERS[newLetter], currentLetter);
+
+    return LETTERS[newLetter];
 }
