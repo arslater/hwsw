@@ -94,19 +94,26 @@ void starCrypt(Rotor * rt_ptr, char * inputString, char actionType)
     int i = 0;
     char newLetter;
 
-    key = getRotorVal(rt_ptr ->rotor1)+getRotorVal(rt_ptr ->rotor2)+getRotorVal(rt_ptr ->rotor3);
-    printf("THE TOAL KEY IZZ: %d\n", key);
-
     while(inputString[i] != '\n')
     {
+        key = getRotorVal(rt_ptr ->rotor1)+getRotorVal(rt_ptr ->rotor2)+getRotorVal(rt_ptr ->rotor3);
+        //printRotors(rt_ptr, true);
         if(actionType == 'd')
         {
             printf("encrypted letter: '%c' | unencrypted to letter: ",inputString[i]);
             //newLetter = inputString[i]+key;
-            printf("%c\n", getNewLetter(inputString[i],key));
+            printf("%c\n", getNewLetter(inputString[i],(-1*key)));
+           // printf("--------------------------------------------\n");
         }
         else
-            printf("build a better algorithm\n");
+        {
+            //assumes test for valid input has already been done
+            printf("unencrypted letter: '%c' | encrypted to letter: ",inputString[i]);
+            //newLetter = inputString[i]+key;
+            printf("%c\n", getNewLetter(inputString[i],key));
+           // printf("--------------------------------------------\n");
+        }
+        incrementRotor(rt_ptr);
         i++;
     }
 }
@@ -118,11 +125,33 @@ char getNewLetter(char currentLetter, int key)
                       'L','M','N','O','P','Q','R','S','T','U','V',
                       'W','X','Y','Z',' '};
 
-    newLetter = (char)(currentLetter == ' ') ? 26 : currentLetter - 65;
-    printf("*****%d ", newLetter);
-    newLetter = ((newLetter + key) > 26) ? (newLetter-27)+key:newLetter+key;
-
+    newLetter = (char)((currentLetter == ' ') ? 26 : currentLetter - 65);
+    key += newLetter;
+    key = (key > 26) ? key-27  :key;    // UGLY logic here, change this
+    key = (key < 0)  ?(key+27) :key;  //
+    //printf("key:%d *****%d ", key ,newLetter);
     //printf("The ascii-trick value is %d, in the array is '%c' the given value is %d\n",newLetter, LETTERS[newLetter], currentLetter);
 
-    return LETTERS[newLetter];
+
+    return LETTERS[key];
+}
+void incrementRotor(Rotor * rt_ptr)
+{
+    //int newRotorIndex;
+
+    if( rt_ptr ->rotor1 == 9)
+    {
+        rt_ptr -> rotor1 = 0;
+
+        if( rt_ptr->rotor2 == 9)
+        {
+            rt_ptr ->rotor2 = 0;
+            rt_ptr ->rotor3++;
+        }
+        else
+            (rt_ptr->rotor2)++;
+    }
+    else
+        (rt_ptr->rotor1)++;
+    //return(newRotorIndex);
 }
