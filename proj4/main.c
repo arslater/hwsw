@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     while (fscanf(file, "%s %s %s", s1,s2,s3)!=EOF)
     {
         printf("READING FILE LINE: %s %s %s\n",s1, s2, s3);
-        if(count == 0)
+       /* if(count == 0)
         {
             thisStudent = makeStudent(s1,strtol(s2,NULL,10),strtof(s3, NULL));
             head.next= thisStudent;
@@ -44,6 +44,8 @@ int main(int argc, char **argv)
             thisStudent->next = makeStudent(s1, strtol(s2, NULL, 10), strtof(s3, NULL));
             thisStudent = thisStudent->next;
         }
+        */
+        push(makeStudent(s1,strtol(s2,NULL,10),strtof(s3, NULL)));
         count++;
     }
     fclose(file);

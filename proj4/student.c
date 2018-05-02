@@ -5,7 +5,7 @@
 
 /* Given the student values, initialize a structure,
    and return a pointer to the struct */
-Student *makeStudent(char name[16], int age, double gpa)
+Student *makeStudent(char name[16], int age, float gpa)
 {
     Student *newStudent = (Student *) malloc(sizeof(Student));
     strcpy(newStudent   -> name, name);
@@ -19,8 +19,18 @@ Student *makeStudent(char name[16], int age, double gpa)
 /* Inserts an element to the front of the linkedList */
 void push(Student *student)
 {
-    student -> next = &head;
-    head = *student;
+    Student * tmp;
+
+    if(head.next == NULL)
+    {
+        head.next = student;
+    }
+    else
+    {
+        tmp = head.next;
+        head.next = student;
+        student -> next = tmp;
+    }
 }
 
 
@@ -29,8 +39,6 @@ Student *findTopStudent()
 {
     Student * top = head.next;
     Student * tmp = head.next;
-
-    printf("HEAD: %s\n", head.name);
 
     while(tmp -> next != NULL)
     {
@@ -48,15 +56,20 @@ Student *findTopStudent()
 float getAverageGPA()
 {
     float   total = 0;
-    int     count = 0;
-    Student *tmp  = &head;
+    int   count = 0;
+    Student *tmp  = head.next;
 
-    while(tmp -> next != NULL)
+    //printf("HEAD: %s\n", head.next ->name);
+    while(tmp != NULL)
     {
-        total+= tmp -> gpa;
+      //  printf("%.1f+%.1f=",tmp->gpa,total);
+        total+=tmp -> gpa;
+      //  printf("%.1f\n",total);
         count++;
         tmp  = tmp -> next;
     }
-    return(  (total/count));
+
+    //printf("TOTAL: %f COUNT:%f\n",total,count);
+    return(  (total/(count)));
 }
 
