@@ -59,12 +59,11 @@ float getAverageGPA()
     int   count = 0;
     Student *tmp  = head.next;
 
-    //printf("HEAD: %s\n", head.next ->name);
     while(tmp != NULL)
     {
       //  printf("%.1f+%.1f=",tmp->gpa,total);
         total+=tmp -> gpa;
-      //  printf("%.1f\n",total);
+
         count++;
         tmp  = tmp -> next;
     }

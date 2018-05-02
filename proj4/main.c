@@ -33,25 +33,11 @@ int main(int argc, char **argv)
 
     while (fscanf(file, "%s %s %s", s1,s2,s3)!=EOF)
     {
-        printf("READING FILE LINE: %s %s %s\n",s1, s2, s3);
-       /* if(count == 0)
-        {
-            thisStudent = makeStudent(s1,strtol(s2,NULL,10),strtof(s3, NULL));
-            head.next= thisStudent;
-        }
-        else
-        {
-            thisStudent->next = makeStudent(s1, strtol(s2, NULL, 10), strtof(s3, NULL));
-            thisStudent = thisStudent->next;
-        }
-        */
+        //printf("READING FILE LINE: %s %s %s\n",s1, s2, s3);
         push(makeStudent(s1,strtol(s2,NULL,10),strtof(s3, NULL)));
         count++;
     }
     fclose(file);
-
-    // TODO:  Change main method code ABOVE
-    //-------------------------------------------------
 
     Student *topStudent = findTopStudent();
     printf("The Student with the best GPA is: %s\n", topStudent->name);
